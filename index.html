@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Skill Gap Detector: An AI-based system for undergraduate engineers to identify critical skill gaps against target industry roles and generate personalized learning roadmaps.">
+  <title>AI Skill Gap Detector | Intelligent Competency Benchmarking & Roadmaps</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Ambient Animated Background Layer -->
+  <div class="bg-ambient-layer" aria-hidden="true">
+    <div class="bg-ambient-blob blob-1"></div>
+    <div class="bg-ambient-blob blob-2"></div>
+    <div class="bg-ambient-blob blob-3"></div>
+    <div class="bg-grid-overlay"></div>
+  </div>
+
+  <!-- Sticky Top Navigation Bar -->
+  <header class="navbar" id="mainNavbar">
+    <div class="container navbar-inner">
+      <a href="#hero" class="nav-brand" aria-label="AI Skill Gap Detector Home">
+        <div class="brand-icon">
+          <!-- Brain / Circuit Icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.54Z"></path>
+            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.54Z"></path>
+          </svg>
+        </div>
+        <div class="brand-title">
+          <span>GapDetector<span class="gradient-text">.AI</span></span>
+          <span class="brand-sub">Skill Intelligence System</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="#hero" class="nav-link active">Home</a></li>
+          <li><a href="#problemSolution" class="nav-link">Process</a></li>
+          <li><a href="#wizardSection" class="nav-link">Analyzer</a></li>
+          <li><a href="#reportSection" class="nav-link" id="navReportLink">Report</a></li>
+          <li><a href="#assessmentSection" class="nav-link" id="navAssessmentLink">Assessment</a></li>
+          <li><a href="#roadmapSection" class="nav-link" id="navRoadmapLink">Roadmap</a></li>
+          <li><a href="#designThinkingSection" class="nav-link">Design Thinking</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-primary btn-sm" id="navCtaBtn" onclick="scrollToAnalyzer()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          Analyze Skills
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. HERO SECTION -->
+    <section class="section hero-section" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="pulse-dot"></span>
+            AI-Powered Career Intelligence Engine
+          </div>
+          <h1 class="hero-title">
+            Bridge the Gap Between <span class="gradient-text">College Labs</span> & <span class="gradient-text">Tech Careers</span>
+          </h1>
+          <div class="hero-tagline">Identify. Bridge. Succeed.</div>
+          <p class="hero-description">
+            Stop guessing what campus recruiters look for. Our automated competency engine compares your resume, projects, and coursework against real industry benchmarks to detect critical skill blindspots and generate your custom sprint roadmap.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg" onclick="scrollToAnalyzer()" id="heroPrimaryCta">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              Analyze My Skills
+            </button>
+            <button class="btn btn-secondary btn-lg" onclick="loadSampleStudentAndStart()" id="heroSampleBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              Load Demo Student
+            </button>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number gradient-text">6</span>
+              <span class="stat-label">Core Tech Roles</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number gradient-text">60+</span>
+              <span class="stat-label">Industry Competencies</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number gradient-text">100%</span>
+              <span class="stat-label">Actionable Free Resources</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decorative Floating Mock Card -->
+        <div class="hero-mock-wrapper">
+          <div class="hero-floating-card">
+            <div class="mock-card-header">
+              <div class="mock-user-meta">
+                <div class="mock-avatar">AS</div>
+                <div>
+                  <div class="mock-user-name">Aarav Sharma</div>
+                  <div class="mock-user-role">Target: Software Developer</div>
+                </div>
+              </div>
+              <span class="mock-score-pill">Gap: 38%</span>
+            </div>
+
+            <div class="mock-skill-bars">
+              <div class="mock-skill-item">
+                <div class="mock-skill-label">
+                  <span>Data Structures & Algorithms</span>
+                  <span style="color: var(--accent-cyan);">Level 3 / 4</span>
+                </div>
+                <div class="mock-skill-track">
+                  <div class="mock-skill-fill fill-cyan" style="width: 75%;"></div>
+                </div>
+              </div>
+
+              <div class="mock-skill-item">
+                <div class="mock-skill-label">
+                  <span>Relational Databases (SQL)</span>
+                  <span style="color: var(--success);">Level 3 / 3</span>
+                </div>
+                <div class="mock-skill-track">
+                  <div class="mock-skill-fill fill-success" style="width: 100%;"></div>
+                </div>
+              </div>
+
+              <div class="mock-skill-item">
+                <div class="mock-skill-label">
+                  <span>System Design Basics</span>
+                  <span style="color: var(--warning);">Level 1 / 2</span>
+                </div>
+                <div class="mock-skill-track">
+                  <div class="mock-skill-fill fill-warning" style="width: 40%;"></div>
+                </div>
+              </div>
+
+              <div class="mock-skill-item">
+                <div class="mock-skill-label">
+                  <span>CI/CD & DevOps Tooling</span>
+                  <span style="color: var(--text-dim);">Level 0 / 3 (Missing)</span>
+                </div>
+                <div class="mock-skill-track">
+                  <div class="mock-skill-fill fill-cyan" style="width: 5%; background: var(--border-subtle);"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mock-floating-badge">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span>Personalized 8-Week Roadmap Ready</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PROBLEM & SOLUTION STRIP -->
+    <section class="section problem-solution-section" id="problemSolution">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Student Plight vs Systemic Solution</span>
+          <h2 class="section-title">The Engineering Placement Dilemma</h2>
+          <p class="section-desc">Why college students struggle to crack technical placements, and how our 5-step intelligent workflow resolves it.</p>
+        </div>
+
+        <div class="ps-grid">
+          <!-- 3 Pain Points -->
+          <div class="pain-points-list">
+            <h3 style="margin-bottom: var(--space-2); font-size: 1.25rem;">3 Critical Placement Hurdles:</h3>
+            
+            <div class="pain-point-card">
+              <div class="pain-icon-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+              </div>
+              <div>
+                <div class="pain-title">Unclear Actual Skill Level</div>
+                <p class="pain-desc">Students pass classroom exams but lack objective data on whether their coding depth matches technical interview criteria.</p>
+              </div>
+            </div>
+
+            <div class="pain-point-card">
+              <div class="pain-icon-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+              </div>
+              <div>
+                <div class="pain-title">Unknown Missing Competencies</div>
+                <p class="pain-desc">Critical industry requirements like Git workflows, API testing, and containerization are completely omitted from university syllabi.</p>
+              </div>
+            </div>
+
+            <div class="pain-point-card">
+              <div class="pain-icon-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polygon points="12 8 8 12 12 16 12 8"></polygon>
+                </svg>
+              </div>
+              <div>
+                <div class="pain-title">Unsure What to Learn Next</div>
+                <p class="pain-desc">Students get trapped in 80-hour tutorial rabbit holes without prioritized order, causing fatigue, burnout, and zero progress.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5-Step Process Stepper -->
+          <div class="stepper-container">
+            <h3 style="margin-bottom: var(--space-2); font-size: 1.25rem;">Our 5-Step Automated Solution:</h3>
+
+            <div class="step-item active">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <div class="step-title">Profile Input</div>
+                <div class="step-desc">Ingest resume text, projects, and certifications via upload or chip selection.</div>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <div class="step-title">AI Skill Extraction</div>
+                <div class="step-desc">Synthesize technical entities and infer practical depth from project contexts.</div>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <div class="step-title">Role Competency Benchmarking</div>
+                <div class="step-desc">Match extracted profile against industry-calibrated role expectations.</div>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <div class="step-title">Quantitative Gap Detection</div>
+                <div class="step-desc">Compute weighted match score, gap percentage, and multi-axis radar balance.</div>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">5</div>
+              <div class="step-content">
+                <div class="step-title">Personalized Sprint Roadmap</div>
+                <div class="step-desc">Generate prioritized phased sprints with curated free high-yield learning modules.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. ANALYZER WIZARD (CORE TOOL) -->
+    <section class="section analyzer-section" id="wizardSection">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Interactive Competency Engine</span>
+          <h2 class="section-title">Launch Your Skill Gap Analysis</h2>
+          <p class="section-desc">Follow the 3-step wizard below or load a pre-configured sample student profile to inspect the engine instantly.</p>
+        </div>
+
+        <div class="glass-card wizard-card">
+          <!-- Wizard Stepper Navigation -->
+          <div class="wizard-progress">
+            <div class="wizard-progress-line"></div>
+            <div class="wizard-progress-active-line" id="wizardActiveLine"></div>
+
+            <div class="wizard-step-node active" id="nodeStep1" onclick="goToWizardStep(1)">
+              <div class="node-circle">01</div>
+              <span class="node-label">Profile Input</span>
+            </div>
+
+            <div class="wizard-step-node" id="nodeStep2" onclick="goToWizardStep(2)">
+              <div class="node-circle">02</div>
+              <span class="node-label">Target Role</span>
+            </div>
+
+            <div class="wizard-step-node" id="nodeStep3">
+              <div class="node-circle">03</div>
+              <span class="node-label">AI Analysis</span>
+            </div>
+          </div>
+
+          <!-- STEP 1: PROFILE INPUT -->
+          <div class="wizard-step-view active" id="wizardStep1">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+              <h3 style="font-size: 1.25rem;">Student Profile & Technical Background</h3>
+              <button class="btn btn-secondary btn-sm" onclick="loadSampleStudentProfile()" id="loadSampleBtn" type="button">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+                Load Sample Student (Aarav Sharma)
+              </button>
+            </div>
+
+            <!-- Profile Input Modes Tabs -->
+            <div class="profile-input-modes">
+              <button class="tab-btn active" id="tabTextMode" onclick="switchInputMode('text')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+                Paste Resume Text / Upload .txt
+              </button>
+              <button class="tab-btn" id="tabChipsMode" onclick="switchInputMode('chips')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                Select Skills from Catalog
+              </button>
+            </div>
+
+            <!-- Text Mode View -->
+            <div id="modeTextContainer">
+              <!-- Upload Dropzone -->
+              <div class="file-dropzone" id="fileDropzone" onclick="document.getElementById('fileUploadInput').click()">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <div style="font-weight: 600;">Click to upload a resume file (.txt) or drag & drop here</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">Plain text resumes or project documentation</div>
+                <input type="file" id="fileUploadInput" class="file-input-hidden" accept=".txt">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="resumeTextInput">
+                  Resume Content & Coursework Details
+                  <span class="form-label-help">(Paste your resume, technical projects, and coursework description)</span>
+                </label>
+                <textarea id="resumeTextInput" class="form-control" placeholder="Paste your resume content, technical summary, programming languages, and tools here..."></textarea>
+              </div>
+            </div>
+
+            <!-- Chips Mode View -->
+            <div id="modeChipsContainer" style="display: none;">
+              <div class="chips-search-bar">
+                <input type="text" id="chipSearchInput" class="form-control" placeholder="Search skills (e.g., Python, SQL, Docker, React, DSA)..." oninput="filterSkillChips()">
+              </div>
+              <div class="chips-container" id="allChipsContainer">
+                <!-- Dynamically populated from MASTER_SKILLS -->
+              </div>
+              <div style="margin-top: var(--space-2); font-size: 0.8rem; color: var(--text-muted);">
+                Selected Skills Count: <span id="selectedChipsCount" style="color: var(--accent-cyan); font-weight: 700;">0</span>
+              </div>
+            </div>
+
+            <!-- Optional Projects & Certifications Fields -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-top: var(--space-4);">
+              <div class="form-group">
+                <label class="form-label" for="projectsInput">
+                  Key Projects & Technologies Used
+                  <span class="form-label-help">(Boosts inferred skill depth)</span>
+                </label>
+                <input type="text" id="projectsInput" class="form-control" placeholder="e.g., Campus Portal (React, Spring Boot, MySQL)">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="certificationsInput">
+                  Certifications & Badges
+                  <span class="form-label-help">(Validates competence)</span>
+                </label>
+                <input type="text" id="certificationsInput" class="form-control" placeholder="e.g., HackerRank 5-Star in Java, Meta Front-End Cert">
+              </div>
+            </div>
+
+            <div class="wizard-footer">
+              <span id="step1ValidationMsg" style="font-size: 0.85rem; color: var(--warning); display: none;">
+                Please provide resume text or select at least 3 skills to proceed.
+              </span>
+              <button class="btn btn-primary" onclick="proceedToStep2()" style="margin-left: auto;">
+                Next: Select Target Role
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 2: TARGET ROLE SELECTION -->
+          <div class="wizard-step-view" id="wizardStep2">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-5);">
+              <div>
+                <h3 style="font-size: 1.25rem;">Choose Your Target Industry Role</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Each role is configured with 10-12 weighted industry standard skills.</p>
+              </div>
+              <button class="btn btn-outline btn-sm" onclick="goToWizardStep(1)">
+                Back to Profile
+              </button>
+            </div>
+
+            <div class="roles-grid" id="rolesGridContainer">
+              <!-- Dynamically populated from TARGET_ROLES -->
+            </div>
+
+            <div class="wizard-footer">
+              <div style="font-size: 0.85rem; color: var(--text-secondary);">
+                Selected Role: <strong id="selectedRoleDisplay" style="color: var(--accent-cyan);">Software Developer</strong>
+              </div>
+              <button class="btn btn-primary btn-lg" onclick="startAnalysisPipeline()" id="runAnalysisBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                Run AI Analysis
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 3: ANIMATED ANALYSIS PIPELINE -->
+          <div class="wizard-step-view" id="wizardStep3">
+            <div class="pipeline-container">
+              <div class="ai-engine-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+                AI Analysis Engine Active
+              </div>
+
+              <div class="pipeline-radar-pulse">
+                <div class="pulse-ring"></div>
+                <div class="pulse-ring"></div>
+                <div class="pulse-ring"></div>
+                <div class="pulse-core">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"></path>
+                  </svg>
+                </div>
+              </div>
+
+              <h3 style="font-size: 1.4rem; margin-bottom: var(--space-2);" id="pipelineMainText">Synthesizing Competencies...</h3>
+              <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: var(--space-6);">Cross-referencing profile attributes with benchmark matrix.</p>
+
+              <div class="pipeline-steps-list">
+                <div class="pipeline-step-item" id="pStep1">
+                  <div class="pipeline-spinner" id="pSpinner1"></div>
+                  <span>Extracting technical skills & keywords</span>
+                </div>
+                <div class="pipeline-step-item" id="pStep2">
+                  <div class="pipeline-spinner" id="pSpinner2"></div>
+                  <span>Evaluating proficiency context from projects & certs</span>
+                </div>
+                <div class="pipeline-step-item" id="pStep3">
+                  <div class="pipeline-spinner" id="pSpinner3"></div>
+                  <span>Cross-referencing industry benchmark requirements</span>
+                </div>
+                <div class="pipeline-step-item" id="pStep4">
+                  <div class="pipeline-spinner" id="pSpinner4"></div>
+                  <span>Calculating gap scores & synthesizing roadmap</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. REPORT DASHBOARD (AI-Generated Skill Gap Report) -->
+    <section class="section report-section" id="reportSection">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Diagnostic Report</span>
+          <h2 class="section-title">AI-Generated Skill Gap Report</h2>
+          <p class="section-desc" id="reportSubtitle">Comprehensive readiness evaluation for your target role.</p>
+        </div>
+
+        <!-- Toolbar for Print & Re-analyze -->
+        <div class="report-toolbar">
+          <div style="display: flex; align-items: center; gap: var(--space-3);">
+            <div class="badge badge-cyan" id="reportRoleBadge">Role: Software Developer</div>
+            <span style="font-size: 0.85rem; color: var(--text-muted);" id="reportTimestamp">Generated Just Now</span>
+          </div>
+
+          <div style="display: flex; gap: var(--space-3);">
+            <button class="btn btn-secondary btn-sm" onclick="window.print()" id="downloadReportBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
+              Download Report (PDF)
+            </button>
+            <button class="btn btn-outline btn-sm" onclick="resetToAnalyzer()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2.5 2v6h6M21.5 22v-6h-6"></path>
+                <path d="M22 11.5A10 10 0 0 0 3.2 7.2M2 12.5a10 10 0 0 0 18.8 4.3"></path>
+              </svg>
+              Re-analyze Skills
+            </button>
+          </div>
+        </div>
+
+        <!-- Assessment Verification Prompt Banner -->
+        <div class="assessment-banner glass-card" id="assessmentBanner">
+          <div class="assessment-banner-content">
+            <div class="assessment-banner-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <path d="M9 15l2 2 4-4"></path>
+              </svg>
+            </div>
+            <div>
+              <div class="assessment-banner-title">Verify Your Real Skill Levels</div>
+              <div class="assessment-banner-desc">Your levels are estimated from your resume. Verify them in about 5 minutes.</div>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="scrollToAssessment()" type="button" id="startAssessmentBannerBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+            Take Skill Assessment
+          </button>
+        </div>
+
+        <!-- Before / After Verification Recalculation Card -->
+        <div class="glass-card before-after-card" id="verificationDiffCard" style="display: none;">
+          <div class="diff-card-content">
+            <div class="diff-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Verified Assessment Applied
+            </div>
+            <div class="diff-metrics">
+              <div class="diff-metric-item">
+                <span class="diff-label">Previous Skill Gap</span>
+                <span class="diff-val diff-old" id="diffOldGap">38%</span>
+              </div>
+              <div class="diff-arrow">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </div>
+              <div class="diff-metric-item">
+                <span class="diff-label">Verified Skill Gap</span>
+                <span class="diff-val diff-new" id="diffNewGap">46%</span>
+              </div>
+              <div class="diff-summary-text" id="diffSummaryText">
+                Gap score updated based on direct multiple-choice assessment performance.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Row: Donut Chart Score + Radar Chart -->
+        <div class="report-dashboard-grid">
+          <!-- Skill Gap Score & Readiness Card -->
+          <div class="glass-card score-summary-card">
+            <h3 style="font-size: 1.15rem; margin-bottom: 2px;">Skill Gap Score</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Deficiency % (100 - Weighted Match)</p>
+
+            <div class="donut-chart-container">
+              <canvas id="gapDonutChart"></canvas>
+              <div class="donut-center-text">
+                <span class="donut-score-value gradient-text" id="donutScoreVal">0%</span>
+                <span class="donut-score-label">Skill Gap</span>
+              </div>
+            </div>
+
+            <div class="readiness-status-badge badge-warning" id="readinessBadge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <span id="readinessStatusText">Moderate Job Readiness</span>
+            </div>
+
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: var(--space-4);" id="readinessAdvice">
+              You match <span id="matchPercentageText" style="color: var(--accent-cyan); font-weight: 700;">62%</span> of the weighted role competencies. Bridge the missing areas with the recommended sprint roadmap.
+            </p>
+          </div>
+
+          <!-- Radar Chart Card -->
+          <div class="glass-card radar-analysis-card">
+            <div class="card-title-row">
+              <div>
+                <h3 style="font-size: 1.15rem;">Student vs Required Competency Radar</h3>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Normalized proficiency comparison categorized by engineering domains.</p>
+              </div>
+              <div class="badge badge-cyan">Multi-Axis Diagnostic</div>
+            </div>
+
+            <div class="radar-chart-container">
+              <canvas id="competencyRadarChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Middle Row: Strong Skills vs Needs Improvement Lists -->
+        <div class="skills-comparison-grid">
+          <!-- Strong Skills Card -->
+          <div class="glass-card skill-list-card">
+            <div class="card-title-row">
+              <h3 style="font-size: 1.15rem; color: var(--success); display: flex; align-items: center; gap: var(--space-2);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                Strong Skills (<span id="strongCount">0</span>)
+              </h3>
+              <span class="badge badge-success">Met Benchmark</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: var(--space-4);">Skills meeting or exceeding the role target level.</p>
+
+            <div id="strongSkillsList">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Needs Improvement & Missing Card -->
+          <div class="glass-card skill-list-card">
+            <div class="card-title-row">
+              <h3 style="font-size: 1.15rem; color: var(--warning); display: flex; align-items: center; gap: var(--space-2);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                Needs Improvement & Missing (<span id="gapCount">0</span>)
+              </h3>
+              <span class="badge badge-warning">High Priority Gaps</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: var(--space-4);">Skills below benchmark or absent from your profile.</p>
+
+            <div id="gapSkillsList">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Row: Recommended Actions Generated From Real Gaps -->
+        <div class="glass-card actions-card">
+          <div class="card-title-row">
+            <div>
+              <h3 style="font-size: 1.15rem;">Recommended Strategic Actions</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Concrete, prioritized steps to eliminate your primary skill bottlenecks.</p>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="scrollToRoadmap()">
+              View Weekly Roadmap
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <div class="actions-grid" id="recommendedActionsContainer">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4.5. SKILL ASSESSMENT QUIZ SECTION -->
+    <section class="section assessment-section" id="assessmentSection">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Direct Verification</span>
+          <h2 class="section-title">Skill Assessment Quiz</h2>
+          <p class="section-desc">Validate your real competencies through targeted 4-question technical quizzes to upgrade inferred levels to verified proficiency.</p>
+        </div>
+
+        <!-- 1. SKILL SELECTION VIEW -->
+        <div class="glass-card quiz-card" id="quizSelectionView">
+          <div class="quiz-header-row">
+            <div>
+              <h3 style="font-size: 1.25rem;">Select Skills to Assess</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted);">Top 5 gap competencies selected by default. You can assess between 1 and 8 skills.</p>
+            </div>
+            <div class="quiz-counter-badge" id="quizSelectedCountBadge">5 Skills Selected (20 Questions • ~5 min)</div>
+          </div>
+
+          <div class="quiz-skills-selector-grid" id="quizSkillCheckboxes">
+            <!-- Dynamically populated checkboxes -->
+          </div>
+
+          <div class="quiz-footer-actions">
+            <span id="quizSelectionMsg" style="font-size: 0.85rem; color: var(--warning); display: none;">
+              Please select between 1 and 8 skills to begin the assessment.
+            </span>
+            <button class="btn btn-primary btn-lg" onclick="startQuizAssessment()" id="startQuizBtn" type="button" style="margin-left: auto;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              Start Skill Assessment
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. ACTIVE QUIZ QUESTION VIEW -->
+        <div class="glass-card quiz-card" id="quizActiveView" style="display: none;">
+          <!-- Top bar: Skill name + Question number + Progress bar -->
+          <div class="quiz-progress-wrapper">
+            <div class="quiz-meta-row">
+              <div class="quiz-skill-badge" id="quizCurrentSkillBadge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                <span id="quizCurrentSkillName">Data Structures & Algorithms</span>
+              </div>
+              <div class="quiz-question-counter" id="quizQuestionCounter">Question 1 of 20</div>
+            </div>
+            <div class="quiz-progress-track">
+              <div class="quiz-progress-fill" id="quizProgressBar" style="width: 5%;"></div>
+            </div>
+          </div>
+
+          <!-- Question header & difficulty dots -->
+          <div class="quiz-question-header">
+            <div class="quiz-difficulty-indicator">
+              <span class="quiz-difficulty-label" id="quizDifficultyLabel">Difficulty: Level 1 / 4 (1 pt)</span>
+              <div class="quiz-difficulty-dots" id="quizDifficultyDots">
+                <span class="diff-dot filled"></span>
+                <span class="diff-dot"></span>
+                <span class="diff-dot"></span>
+                <span class="diff-dot"></span>
+              </div>
+            </div>
+            <h3 class="quiz-prompt-text" id="quizPromptText">Question prompt goes here...</h3>
+          </div>
+
+          <!-- 4 Multiple-choice options -->
+          <div class="quiz-options-grid" id="quizOptionsContainer" role="radiogroup" aria-label="Question Options">
+            <!-- Dynamically populated options A, B, C, D -->
+          </div>
+
+          <!-- Explanation box (revealed on selection) -->
+          <div class="quiz-explanation-box" id="quizExplanationBox" style="display: none;">
+            <div class="explanation-title" id="quizExplanationTitle">Correct!</div>
+            <div class="explanation-text" id="quizExplanationText">Explanation details...</div>
+          </div>
+
+          <!-- Bottom toolbar: Skip button + Next/Finish button -->
+          <div class="quiz-toolbar">
+            <button class="btn btn-outline btn-sm" onclick="skipQuizQuestion()" id="quizSkipBtn" type="button">
+              Skip (0 pts)
+            </button>
+            <button class="btn btn-primary" onclick="nextQuizQuestion()" id="quizNextBtn" style="display: none;" type="button">
+              Next Question
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. RESULTS VIEW -->
+        <div class="glass-card quiz-card" id="quizResultsView" style="display: none;">
+          <div class="results-header-row">
+            <div>
+              <h3 style="font-size: 1.35rem; margin-bottom: 4px;">Assessment Complete</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted);">Review your resume-inferred proficiency versus your verified quiz results.</p>
+            </div>
+            <div class="badge badge-success" id="quizTotalPointsBadge" style="font-size: 0.85rem; padding: 8px 14px;">Total Score: 0 / 0 pts</div>
+          </div>
+
+          <div class="results-table-container">
+            <table class="results-table">
+              <thead>
+                <tr>
+                  <th>Competency</th>
+                  <th>Inferred Level</th>
+                  <th>Quiz Performance</th>
+                  <th>Verified Level</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="quizResultsTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="results-footer-actions">
+            <button class="btn btn-outline" onclick="retakeQuizAssessment()" type="button" id="retakeQuizBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 2v6h6M21.5 22v-6h-6"></path><path d="M22 11.5A10 10 0 0 0 3.2 7.2M2 12.5a10 10 0 0 0 18.8 4.3"></path></svg>
+              Retake
+            </button>
+            <button class="btn btn-primary btn-lg" onclick="applyVerifiedLevels()" type="button" id="applyVerifiedLevelsBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Apply Verified Levels
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. PERSONALIZED LEARNING ROADMAP -->
+    <section class="section roadmap-section" id="roadmapSection">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Custom Sprint Schedule</span>
+          <h2 class="section-title">Personalized Learning Roadmap</h2>
+          <p class="section-desc">Phased weekly milestones ordered by gap priority, equipped with free resources and persistent progress tracking.</p>
+        </div>
+
+        <!-- Progress Tracking Ring & Feedback Card -->
+        <div class="progress-tracker-card">
+          <div class="tracker-left">
+            <div class="ring-wrapper">
+              <svg class="ring-svg" width="76" height="76">
+                <circle class="ring-bg" cx="38" cy="38" r="32"></circle>
+                <circle class="ring-progress" id="roadmapProgressCircle" cx="38" cy="38" r="32" stroke-dasharray="201" stroke-dashoffset="201"></circle>
+              </svg>
+              <div class="ring-text" id="roadmapProgressPercent">0%</div>
+            </div>
+
+            <div class="tracker-info">
+              <h4 id="trackerCompletedCount">0 of 0 Roadmap Milestones Completed</h4>
+              <div class="tracker-message" id="trackerDynamicMessage">Check off milestones as you master skills to track your improving readiness.</div>
+            </div>
+          </div>
+
+          <div>
+            <button class="btn btn-outline btn-sm" onclick="resetRoadmapProgress()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                <path d="M3 3v5h5"></path>
+              </svg>
+              Reset Checkmarks
+            </button>
+          </div>
+        </div>
+
+        <!-- Vertical Timeline Split into Phases -->
+        <div class="timeline-container" id="roadmapTimelineContainer">
+          <!-- Dynamically populated with Phase blocks -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. DESIGN THINKING SECTION ("How We Designed This") -->
+    <section class="section" id="designThinkingSection">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Design Thinking Methodology</span>
+          <h2 class="section-title">How We Designed This Prototype</h2>
+          <p class="section-desc">Developed for our academic Design Thinking submission, following the 5-stage human-centered innovation framework.</p>
+        </div>
+
+        <!-- Tabs Nav for 5 Stages -->
+        <div class="dt-tabs-nav">
+          <button class="dt-tab-btn active" onclick="switchDTTab('empathize')">1. Empathize</button>
+          <button class="dt-tab-btn" onclick="switchDTTab('define')">2. Define</button>
+          <button class="dt-tab-btn" onclick="switchDTTab('ideate')">3. Ideate</button>
+          <button class="dt-tab-btn" onclick="switchDTTab('prototype')">4. Prototype</button>
+          <button class="dt-tab-btn" onclick="switchDTTab('test')">5. Test & Feedback</button>
+        </div>
+
+        <!-- Tab 1: EMPATHIZE -->
+        <div class="dt-content-pane active" id="pane-empathize">
+          <div class="glass-card dt-card">
+            <h3 style="font-size: 1.35rem; margin-bottom: var(--space-4);">Stage 1: Empathize — Understanding Student Placement Frustrations</h3>
+            
+            <div class="persona-layout">
+              <div class="persona-avatar-col">
+                <div class="persona-avatar-big" style="background: linear-gradient(135deg, #00D4FF, #2563EB);">RD</div>
+                <div class="persona-name">Rhea Deshmukh</div>
+                <div class="persona-role">3rd Year B.Tech CSE Undergrad</div>
+                <div class="persona-tagline">"Facing acute placement anxiety due to unknown industry expectations."</div>
+              </div>
+
+              <div class="persona-details-col">
+                <div>
+                  <h4 style="font-size: 1rem; color: var(--accent-cyan); margin-bottom: var(--space-2);">Core Goals</h4>
+                  <ul style="padding-left: var(--space-4); font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                    <li>Secure a tier-1 software developer or web engineering campus placement.</li>
+                    <li>Clearly know what campus recruiters evaluate versus what the university syllabus teaches.</li>
+                    <li>Follow a structured, phased roadmap instead of wandering through disorganized video tutorials.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 style="font-size: 1rem; color: var(--danger); margin-bottom: var(--space-2);">Key Frustrations & Pain Points</h4>
+                  <ul style="padding-left: var(--space-4); font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                    <li>Overwhelmed by contradictory advice on YouTube, LinkedIn, and developer forums.</li>
+                    <li>Unsure whether basic classroom coding projects meet actual production criteria.</li>
+                    <li>Wasting weeks studying outdated technologies that recruiters no longer evaluate.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <h4 style="font-size: 1.1rem; margin-bottom: var(--space-2);">Field Interview Insights (College Cohort)</h4>
+            <div class="insights-grid">
+              <div class="insight-card">
+                <div class="insight-quote">"I know how to write a basic loop in Java, but when I see technical job listings demanding System Design and CI/CD pipelines, I have no idea how far away I actually am."</div>
+                <div class="insight-author">— Siddharth, 6th Semester CSE</div>
+              </div>
+              <div class="insight-card">
+                <div class="insight-quote">"College teaches us DBMS theory with normalization formulas, but tech interviews ask live SQL window functions and database indexing that we never practiced."</div>
+                <div class="insight-author">— Ananya, Final Year IT</div>
+              </div>
+              <div class="insight-card">
+                <div class="insight-quote">"Whenever I want to prepare, I start 5 different video courses, get overwhelmed by 80-hour playlists, and quit after two weeks because there's no milestone tracking."</div>
+                <div class="insight-author">— Karan, 5th Semester ECE</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: DEFINE -->
+        <div class="dt-content-pane" id="pane-define">
+          <div class="glass-card dt-card">
+            <h3 style="font-size: 1.35rem; margin-bottom: var(--space-3);">Stage 2: Define — The Problem Statement</h3>
+            
+            <div style="padding: var(--space-5); background: rgba(0, 212, 255, 0.08); border-left: 4px solid var(--accent-cyan); border-radius: 8px; margin-bottom: var(--space-6);">
+              <div style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); line-height: 1.6;">
+                "Undergraduate engineering students lack an objective, automated mechanism to diagnose their concrete skill deficiencies against specific industry job roles, causing aimless preparation, high placement anxiety, and preventable interview rejections."
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5);">
+              <div style="padding: var(--space-4); background: rgba(7, 16, 38, 0.6); border-radius: 8px; border: 1px solid var(--border-subtle);">
+                <div style="font-weight: 700; color: var(--warning); margin-bottom: var(--space-2);">1. Skill Blindspots</div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Students equate superficial syntax familiarity with interview readiness, unaware of enterprise depth requirements.</p>
+              </div>
+
+              <div style="padding: var(--space-4); background: rgba(7, 16, 38, 0.6); border-radius: 8px; border: 1px solid var(--border-subtle);">
+                <div style="font-weight: 700; color: var(--danger); margin-bottom: var(--space-2);">2. Curriculum Lag</div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">College syllabi lag industry hiring trends by 2-3 years, neglecting modern devops, containerization, and API architecture.</p>
+              </div>
+
+              <div style="padding: var(--space-4); background: rgba(7, 16, 38, 0.6); border-radius: 8px; border: 1px solid var(--border-subtle);">
+                <div style="font-weight: 700; color: var(--accent-cyan); margin-bottom: var(--space-2);">3. Decision Paralysis</div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Unfiltered course catalogs lead to tutorial abandonment without disciplined, phased milestone accountability.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: IDEATE -->
+        <div class="dt-content-pane" id="pane-ideate">
+          <div class="glass-card dt-card">
+            <h3 style="font-size: 1.35rem; margin-bottom: var(--space-4);">Stage 3: Ideate — How Might We (HMW) Questions</h3>
+
+            <div style="display: flex; flex-direction: column; gap: var(--space-5); margin-bottom: var(--space-6);">
+              <div style="padding: var(--space-4); background: rgba(7, 16, 38, 0.6); border-radius: 8px; border: 1px solid var(--border-subtle);">
+                <div style="font-weight: 700; color: var(--accent-cyan); margin-bottom: var(--space-2);">
+                  HMW #1: How Might We objectively quantify a student's real skills from unstructured resumes?
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                  <strong>Solution:</strong> A multi-tiered local NLP engine that normalizes skill aliases, cross-examines project mentions, and factors certification credentials into a deterministic 1-5 proficiency scale.
+                </div>
+              </div>
+
+              <div style="padding: var(--space-4); background: rgba(7, 16, 38, 0.6); border-radius: 8px; border: 1px solid var(--border-subtle);">
+                <div style="font-weight: 700; color: var(--accent-cyan); margin-bottom: var(--space-2);">
+                  HMW #2: How Might We visualize gaps so students feel empowered rather than defeated?
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                  <strong>Solution:</strong> A dual diagnostic dashboard pairing an overall Skill Gap Score donut chart with a domain-categorized radar chart that highlights existing strengths alongside high-priority areas for improvement.
+                </div>
+              </div>
+
+              <div style="padding: var(--space-4); background: rgba(7, 16, 38, 0.6); border-radius: 8px; border: 1px solid var(--border-subtle);">
+                <div style="font-weight: 700; color: var(--accent-cyan); margin-bottom: var(--space-2);">
+                  HMW #3: How Might We convert gap diagnosis into daily prep momentum?
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                  <strong>Solution:</strong> Automated chronological 2-week sprint generation prioritized by highest industry weight, complete with verified free resources and persistent localStorage progress checkmarks.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: PROTOTYPE -->
+        <div class="dt-content-pane" id="pane-prototype">
+          <div class="glass-card dt-card">
+            <h3 style="font-size: 1.35rem; margin-bottom: var(--space-4);">Stage 4: Prototype — System Architecture & Implementation</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); margin-bottom: var(--space-6);">
+              <div style="padding: var(--space-4); background: rgba(7, 16, 38, 0.6); border-radius: 8px; border: 1px solid var(--border-subtle);">
+                <h4 style="font-size: 1rem; color: var(--accent-cyan); margin-bottom: var(--space-2);">Core Technical Features</h4>
+                <ul style="padding-left: var(--space-4); font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
+                  <li>Zero build step, 100% client-side vanilla JavaScript architecture.</li>
+                  <li>Deterministic weighted gap algorithm with 60+ industry competencies.</li>
+                  <li>Chart.js integration for dynamic Donut & Multi-Axis Radar graphics.</li>
+                  <li>Responsive glassmorphic UI adhering to dark navy-and-cyan aesthetic.</li>
+                  <li>Print stylesheet converting report into clean academic placement PDF.</li>
+                </ul>
+              </div>
+
+              <div style="padding: var(--space-4); background: rgba(7, 16, 38, 0.6); border-radius: 8px; border: 1px solid var(--border-subtle);">
+                <h4 style="font-size: 1rem; color: var(--success); margin-bottom: var(--space-2);">Extensibility Hook</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--space-3);">
+                  Includes a clearly marked <code style="color: var(--accent-cyan);">analyzeWithLLM()</code> asynchronous function in <code style="color: var(--accent-cyan);">app.js</code> allowing drop-in connection to Gemini, Claude, or OpenAI APIs without modifying frontend presentation.
+                </p>
+                <div style="font-size: 0.8rem; color: var(--text-muted); padding: 8px; background: rgba(0,0,0,0.3); border-radius: 4px;">
+                  Status: Local Smart Engine Active (Mock Fallback Ready)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 5: TEST & FEEDBACK -->
+        <div class="dt-content-pane" id="pane-test">
+          <div class="glass-card dt-card">
+            <h3 style="font-size: 1.35rem; margin-bottom: var(--space-2);">Stage 5: Test & Evaluation Feedback</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: var(--space-4);">
+              Submit your usability evaluation. Responses are stored in your browser's persistent localStorage for evaluation review.
+            </p>
+
+            <!-- Test Insight Note -->
+            <div class="dt-test-insight-card" style="padding: var(--space-4); background: rgba(0, 212, 255, 0.08); border-left: 4px solid var(--accent-cyan); border-radius: 6px; margin-bottom: var(--space-6);">
+              <div style="font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 2px;">Test Insight</div>
+              <div style="font-size: 0.85rem; color: var(--text-primary); line-height: 1.5;">Keyword inference over-rated students, so we added assessments to verify levels.</div>
+            </div>
+
+            <form id="feedbackForm" onsubmit="submitDTFeedback(event)">
+              <div class="form-group">
+                <label class="form-label">Usability & Startup Appeal Rating</label>
+                <div class="star-rating" id="starRatingGroup">
+                  <button type="button" class="star-btn" onclick="setRating(1)">★</button>
+                  <button type="button" class="star-btn" onclick="setRating(2)">★</button>
+                  <button type="button" class="star-btn" onclick="setRating(3)">★</button>
+                  <button type="button" class="star-btn" onclick="setRating(4)">★</button>
+                  <button type="button" class="star-btn active" onclick="setRating(5)">★</button>
+                </div>
+                <input type="hidden" id="ratingValueInput" value="5">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="feedbackImprovementText">What feature or role should we add next?</label>
+                <textarea id="feedbackImprovementText" class="form-control" style="min-height: 90px;" placeholder="e.g., Add Cyber Security role, export roadmap to Google Calendar, add mock interview simulator..."></textarea>
+              </div>
+
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <button type="submit" class="btn btn-primary" id="feedbackSubmitBtn">
+                  Submit Feedback
+                </button>
+                <span id="feedbackSavedAlert" style="font-size: 0.85rem; color: var(--success); display: none;">
+                  Feedback saved to localStorage! Thank you for testing.
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div style="display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3);">
+            <div class="brand-icon" style="width: 32px; height: 32px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.54Z"></path>
+                <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.54Z"></path>
+              </svg>
+            </div>
+            <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.1rem;">AI Skill Gap Detector</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); max-width: 480px; margin-bottom: var(--space-4);">
+            An AI-based system for undergraduate engineers to identify and bridge technical skill gaps through contextual competency benchmarking and prioritized sprint roadmaps.
+          </p>
+          <div style="font-size: 0.75rem; color: var(--accent-cyan);">
+            Design Thinking Capstone Prototype
+          </div>
+        </div>
+
+        <!-- Academic Team Metadata (Populated from TEAM_CONFIG) -->
+        <div class="footer-config-card" id="footerTeamCard">
+          <!-- Populated from app.js -->
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2026 AI Skill Gap Detector Prototype. Built with vanilla HTML, CSS & JavaScript. No frameworks or external server dependencies.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="quiz-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
